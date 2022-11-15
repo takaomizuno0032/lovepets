@@ -1,0 +1,33 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Pet {
+  name: String!
+  animalType: String!
+  type: String!
+  gender: String!
+  description: String!
+  img: String!
+  area: String!
+  age: Float!
+}
+
+type Query {
+  find: [Pet!]!
+}
+
+type Mutation {
+  createUser(input: CreatePetInput!): Pet!
+}
+
+input CreatePetInput {
+  name: String!
+  animalType: String!
+  type: String!
+  gender: String!
+  description: String!
+  img: String!
+  area: String!
+  age: Float!
+}
