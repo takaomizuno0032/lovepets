@@ -6,14 +6,9 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function Header() {
-
-
-
     return (
-        // <ThemeProvider theme={theme}>
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" color='custom'>
                 <Toolbar>
@@ -33,7 +28,6 @@ function Header() {
                 </Toolbar>
             </AppBar>
         </Box>
-        // </ThemeProvider>
     );
 }
 

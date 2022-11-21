@@ -3,6 +3,7 @@
 # ------------------------------------------------------
 
 type Pet {
+  _id: ID!
   name: String!
   animalType: String!
   type: String!
@@ -11,17 +12,32 @@ type Pet {
   img: String!
   area: String!
   age: Float!
+}
+
+type Photo {
+  _id: ID!
+  img: String!
+  title: String!
+  rows: Float!
+  cols: Float!
+  pet_id: ID!
 }
 
 type Query {
-  find: [Pet!]!
+  pets: [Pet!]!
+  pet(_id: Float!): Pet!
+  photos: [Photo!]!
+  photo(_id: Float!): Photo!
+  photosByPetId(_petId: Float!): [Photo!]!
 }
 
 type Mutation {
-  createUser(input: CreatePetInput!): Pet!
+  createPet(input: CreatePetInput!): Pet!
+  createPhoto(input: CreatePhotoInput!): Photo!
 }
 
 input CreatePetInput {
+  _id: ID!
   name: String!
   animalType: String!
   type: String!
@@ -30,4 +46,13 @@ input CreatePetInput {
   img: String!
   area: String!
   age: Float!
+}
+
+input CreatePhotoInput {
+  _id: ID!
+  img: String!
+  title: String!
+  rows: Float!
+  cols: Float!
+  pet_id: ID!
 }

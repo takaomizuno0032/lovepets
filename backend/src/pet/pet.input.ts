@@ -1,8 +1,11 @@
 // src/user/user.input.ts
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType, ID } from '@nestjs/graphql';
 
 @InputType()
 export class CreatePetInput {
+    @Field(() => ID)
+    _id: number;
+
     @Field()
     name: string;
 

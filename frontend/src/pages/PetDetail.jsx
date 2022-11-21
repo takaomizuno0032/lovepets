@@ -1,42 +1,55 @@
 import React from 'react';
-import ProptTypes from 'prop-types';
 import { Avatar, Typography, Grid, TableContainer, Box, Table, TableRow, TableCell, TableBody } from '@mui/material';
 import GaryImg from '../static/img/gary_3.jpg';
-import PadIcon from '../static/img/catpad.png';
+import GonImg from '../static/img/gon_1.jpg';
 import { Container } from '@mui/system';
 import PetsIcon from '@mui/icons-material/Pets';
+import { useParams } from 'react-router-dom';
+import { useQuery, gql } from '@apollo/client';
+import PetPhotos from '../components/PetPhotos';
+
+const paths = { '../static/img/gary_3.jpg': GaryImg, '../static/img/gon_1.jpg': GonImg }
 
 function createData(label, data) {
     return { label, data }
 }
 
-
 function PetDetail(prop) {
+    const id = Number(useParams().id);
 
-    // This data should be fetched from database
-    const pet1 = {
-        name: "Gary",
-        animalType: "Cat",
-        type: "mix",
-        gender: "male",
-        description: "Ayano's cat",
-        img: GaryImg,
-        area: "Kumamoto",
-        age: 2
-    };
+    const GET_PET = gql`
+    query GetPet($id: Float!) {
+        pet(_id: $id) {
+        _id
+        name
+        animalType
+        type
+        gender
+        description
+        img
+        area
+        age
+        }
+    }
+    `;
 
+    const { loading, error, data } = useQuery(GET_PET, { variables: { id } });
+
+    if (loading) return 'Loading...';
+
+    if (error) return `Error! ${error.message}`;
 
     const rows = [
-        createData("name", pet1.name),
-        createData("type", pet1.type),
-        createData("gender", pet1.gender),
-        createData("age", pet1.age),
-        createData("area", pet1.area)
+        createData("name", data.pet.name),
+        createData("type", data.pet.type),
+        createData("gender", data.pet.gender),
+        createData("age", data.pet.age),
+        createData("area", data.pet.area)
     ]
 
 
-
-
+    const imgPath = '../static/img/' + data.pet.img;
+    const img = paths[imgPath];
 
     return (
         <Container>
@@ -51,7 +64,7 @@ function PetDetail(prop) {
                 <Grid item xs={12} md={6} lg={6}>
                     <Avatar
                         alt="gary"
-                        src={pet1.img}
+                        src={img}
                         sx={{ height: 400, width: 300, margin: '0 auto' }}
                     />
                 </Grid>
@@ -63,9 +76,9 @@ function PetDetail(prop) {
                     <TableContainer>
                         <Table>
                             <TableBody>
-                                {rows.map((row) => (
+                                {rows.map((row, i) => (
                                     <TableRow
-                                        key={row.name}
+                                        key={i}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
                                         <TableCell>{row.label}</TableCell>
@@ -84,9 +97,18 @@ function PetDetail(prop) {
                     Introduce myself
                 </Typography>
                 <Typography>
-                    {pet1.description}
+                    {data.pet.description}
                 </Typography>
             </Box>
+            <Box sx={{ margin: 3 }}>
+                <PetsIcon sx={{ color: 'custom.dark' }} />
+                <Typography variant='h5' sx={{ fontWeight: 'bold', paddingLeft: 2, display: 'inline-block' }}>
+                    Photo list
+                </Typography>
+                {/* ペットのidを渡す */}
+                <PetPhotos petId={id} />
+            </Box>
+
 
         </Container>
     );

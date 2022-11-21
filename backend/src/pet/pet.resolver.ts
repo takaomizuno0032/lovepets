@@ -8,12 +8,18 @@ export class PetResolver {
     constructor(private petService: PetsService) { }
 
     @Mutation(() => Pet)
-    async createUser(@Args('input') input: CreatePetInput) {
+    async createPet(@Args('input') input: CreatePetInput) {
         return this.petService.create(input);
     }
 
     @Query(returns => [Pet])
-    async find() {
+    async pets() {
         return this.petService.findAll();
     }
+
+    @Query(() => Pet)
+    async pet(@Args('_id', { type: () => Number! }) id: number) {
+        return this.petService.findOneById(id);
+    }
+
 }

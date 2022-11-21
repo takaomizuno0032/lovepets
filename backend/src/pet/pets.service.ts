@@ -18,4 +18,8 @@ export class PetsService {
     async findAll(): Promise<Pet[]> {
         return this.petModel.find().exec();
     }
+
+    async findOneById(id: number): Promise<Pet> {
+        return this.petModel.findOne({ _id: `${id}` }).exec();
+    }
 }

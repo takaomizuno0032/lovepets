@@ -4,8 +4,6 @@ import Products from '../components/Products';
 import Jumbotron from '../components/Jumbotron';
 
 function Home() {
-
-
     return (
         <React.Fragment>
             <Jumbotron />

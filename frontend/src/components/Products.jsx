@@ -1,7 +1,5 @@
 import React from 'react';
-import ProptTypes from 'prop-types';
-import { Card, CardContent, CardMedia, Typography, Grid, Container } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Typography, Grid, Container } from '@mui/material';
 import ShirtImg from '../static/img/shirt1.jpg';
 import Product from './Product';
 

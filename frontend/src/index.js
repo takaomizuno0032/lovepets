@@ -3,33 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter, BrowserRouter as Router, RouterProvider } from "react-router-dom";
-import Layout from './pages/Layout';
-import Home from './pages/Home';
-import PageNotFound from './pages/PageNotFound';
-import { ApolloProvider, ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import { BrowserRouter as Router } from "react-router-dom";
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
 const client = new ApolloClient({
+  // this url should be changed to public server
   uri: "http://localhost:3001/graphql",
   cache: new InMemoryCache()
 });
-
-// client
-//   .query({
-//     query: gql`
-//       query GetLocations {
-//         locations {
-//           id
-//           name
-//           description
-//           photo
-//         }
-//       }
-//     `,
-
-//   })
-//   .then((result) => console.log(result));
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
